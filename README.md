@@ -1,8 +1,8 @@
 #Trabalho Prático: Pokedex
 
-*Desenvolvimento de Aplicações Web --- COLTEC/MG*
+*Desenvolvimento de Aplicações Web & Tecnologias de Programação --- COLTEC/MG*
 
-*João Eduardo Montandon*
+*João Eduardo Montandon & Virgínia Fernandes Mota*
 
 **Nº de Participantes: 02 --- Valor: 06 pontos (TP) / 08 pontos (DAW)**
 
@@ -32,6 +32,13 @@ Mais especificamente, seu sistema deverá ter **obrigatoriamente** as seguintes 
 * O frontend deverá ser feito utilizando AngurlarJS
 
 * A interface de comunicação entre ambos os módulos deverá ser feita por meio de serviços REST
+
+### Avaliação
+
+O trabalho será avaliado por disciplina da seguinte forma:
+
+* **TP:** Backend (Servlets, JDBC, etc.)
+* **DAW:** Frontend (AngularJS) + Banco de dados (Estrutura)
 
 ### Observações
 
