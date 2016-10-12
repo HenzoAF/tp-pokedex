@@ -4,7 +4,7 @@
 
 *João Eduardo Montandon & Virgínia Fernandes Mota*
 
-**Nº de Participantes: 02 --- Valor: 06 pontos (TP) / 08 pontos (DAW)**
+**Participantes: Augusto Lopes e Henzo Alves --- Valor: 06 pontos (TP) / 08 pontos (DAW)**
 
 **Data de Entrega: 01/11/2016**
 
@@ -56,5 +56,3 @@ Acredite, você vai precisar :)
 * [Modelo de Pokédex](http://codepen.io/Bidji/pen/MYdPwo): Código em CSS de um possível modelo de Pokédex
 
 **Catch them all!!**
-
-  
