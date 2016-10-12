@@ -1,0 +1,102 @@
+.tabs .tab a {
+  color: #000;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: color .28s ease;
+}
+
+.tabs .tab a:hover {
+  color: #000;
+}
+
+.tabs .tab.disabled a {
+  color: #000;
+  cursor: default;
+}
+
+.tabs .indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: #000;
+  will-change: left, right;
+}
+.dropdown-content li:hover, .dropdown-content li.active, .dropdown-content li.selected {
+  background-color: #eee;
+}
+
+.dropdown-content li.active.selected {
+  background-color: #e1e1e1;
+}
+
+.dropdown-content li.divider {
+  min-height: 0;
+  height: 1px;
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+  font-size: 16px;
+  color: #000;
+  display: block;
+  line-height: 22px;
+  padding: 14px 16px;
+}
+/* label focus color */
+  .input-field input[type=text]:focus + label {
+    color: #000;
+}
+.btn, button:focus{
+  background-color: rgba(0, 0,0, 0.25);
+}
+
+
+
+.btn-large,
+.btn-flat {
+  height: auto;
+  line-height: 36px;
+}
+.input-field label.active {
+  font-size: inherit;
+  -webkit-transform: none;
+          transform: none;
+}
+.side-nav .collapsible-header, .side-nav.fixed .collapsible-header .side-nav .collapsible-body,.side-nav .collapsible-body li a,
+.side-nav.fixed .collapsible-body li a, .side-nav a {
+  padding: 0 10px;
+  color: inherit;
+}
+.side-nav .collapsible-header:hover,
+.side-nav.fixed .collapsible-header:hover ,.side-nav.collapsible-header.active {
+  background-color: #01579b;
+}
+.side-nav .collapsible-body, .side-nav.fixed .collapsible-body{
+  background-color: #01579b;
+}
+nav a.button-collapse{
+  display:block;
+}
+
+[type="checkbox"].filled-in:checked + label:after {
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #01579b;
+  background-color: #01579b;
+  z-index: 0;
+}
+
+[type="checkbox"].filled-in.tabbed:checked:focus + label:after {
+  border-radius: 2px;
+  background-color: #01579b;
+  border-color: #01579b;
+}
+.input-field input[type=search]:focus {
+  background-color: inherit;;
+  border: 0;
+  box-shadow: none;
+  color: inherit;
+}

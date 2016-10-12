@@ -1,0 +1,147 @@
+@font-face {
+  font-family: MKX;
+  src: url(fonts/mkx.ttf);
+}
+@font-face {
+  font-family: harabara;
+  src :url(fonts/Harabara.ttf);
+}
+@font-face {
+  font-family: o24d;
+  src :url(fonts/o24d.ttf);
+}
+@font-face {
+  font-family: bebas;
+  src :url(fonts/bebas.otf);
+}
+
+header {
+  color: white;
+  font-size: 275%;
+  text-align: center;
+}
+nav{
+}
+
+header p{
+  margin: 0;
+  border: 0;
+}
+footer a{
+  color: white;
+}
+a:link {
+  text-decoration: none;
+}
+
+/*________________________________________________________________*/
+/*________________________________________________________________*/
+body {
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  max-width: 100%;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+}
+.zdex{
+  z-index: -99;
+}
+.nom{
+  margin: 0;
+}
+.darken-02{
+  background-color: rgba(51, 51 ,51, 0.2);
+}
+footer.page-footer .footer-copyright {
+  background-color: rgba(255,255 ,255, 0.08);
+}
+.mainpanel {
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-left: 2.5%;
+  padding-bottom: 2.5%;
+  border-radius: 20px;
+}
+.littlecards{
+  width: 33%;
+  padding-top: 1%;
+  margin: auto;
+border : thick solid #8b1014;
+}
+.red-border{
+  border : thick solid #8b1014;
+}
+.littlecards-box{
+  padding-left: auto;
+}
+.z-index_intermediate{
+  z-index: 10;
+}
+.item_menu{
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 0;
+  padding-right: 0;
+  align-content: center;
+}
+.data p{
+  color: white;
+}
+
+.legenda p{
+  color: white;
+  text-align: justify;
+  font-size: 175%;
+  font-family: bebas;
+  z-index: -99;
+}
+.pad{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2.5%;
+}
+.pad-10x{
+  padding-left: 50%;
+  padding-right: 50%;
+  padding-top: 25%;
+}
+
+.side-nav {
+  width: 300px;
+}
+
+.dropleft-main {
+  top:10px;
+  position:relative;
+  display: inline;
+}
+
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+.header-menu-fix{
+  margin-left:15px;
+}
+
+@media screen and (max-width: 600px) {
+  .header-home-fix{
+    margin-bottom:-9px;
+    margin-left:-10%;
+  }
+}
+@media screen and (min-width: 601px) {
+  .header-home-fix{
+    margin-bottom:-9px;
+    margin-left:-5%;
+
+  }
+}
