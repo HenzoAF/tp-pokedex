@@ -1,0 +1,68 @@
+<div class="row">
+  <div id="images" class="col m4 offset-m1 mainpanel red-border red">
+    <div class="row"> <div class="col m12"><h5></h5></div></div>
+    <div class="row">
+      <div class="col m10 offset-m1 white mainpanel">
+        <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png" width="240px" height="240px" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m10 offset-m1 green black-text center mainpanel">
+        <h5>Ivysaur</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m10 offset-m1 green black-text mainpanel">
+        <p><b>TIPO:</b>GRASS,POISON</p>
+        <p><b>ALTURA:</b>12,5M</p>
+        <p><b>PESO:</b>1kg</p>
+
+      </div>
+    </div>
+  </div>
+  <div id="evolutions" class="col m6 mainpanel red-border red">
+    <div class="row"> <div class="col m12"><h5></h5></div></div>
+    <div class="row">
+      <div class="col m10 offset-m1 green black-text center mainpanel">
+        <h5>Evolutions</h5>
+      </div>
+    </div>
+    <div class="row">
+      <a ng-repeat="evolution in pokemonController.evolutions" href="pokemon/{{evolutions.id}}"><div class="littlecards-box" >
+        <div class="col mainpanel littlecards">
+          <div class="row">
+            <div class="col m12 white mainpanel">
+              <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/{{evolution.id}}.png" width="100px" height="100px" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col m12 green black-text center mainpanel">
+              <h5>{{evolution.nome}}</h5>
+            </div>
+          </div>
+        </div>
+      </div></a>
+
+    <div class="row">
+      <div class="col m10 offset-m1 green black-text center mainpanel">
+        <h5>Similares</h5>
+      </div>
+    </div>
+    <div class="row">
+      <a ng-repeat="similar in pokemonController.similares" href="pokemon/{{similares.id}}"><div class="littlecards-box" >
+        <div class="col mainpanel littlecards">
+          <div class="row">
+            <div class="col m12 white mainpanel">
+              <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/{{similar.id}}.png" width="100px" height="100px" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col m12 green black-text center mainpanel">
+              <h5>{{similar.nome}}</h5>
+            </div>
+          </div>
+        </div>
+      </div></a>
+    </div>
+  </div>
+</div>
