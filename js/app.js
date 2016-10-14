@@ -7,6 +7,7 @@ pokedapp.config(function($routeProvider) {
 	$routeProvider.when("/", {
 		templateUrl : "templates/home.html",
 		controller  : "mainController",
+		controllerAs  : "mc",
 	})
 
 	// route for the  page
@@ -24,10 +25,11 @@ pokedapp.config(function($routeProvider) {
  * Serviço para manipulação dos objetos do serviço
  */
 
- var adrs = {};
- adrs.pokeapi = "http://pokeapi.co/api/v2/";
+ pokedapp.adrs = {};
 
-app.factory('Service', function($http) {
+ pokedapp.adrs.pokeapi = "http://pokeapi.co/api/v2/";
+
+pokedapp.factory('service', function($http) {
   var service = {};
 
   /**
@@ -66,16 +68,17 @@ app.factory('Service', function($http) {
 
 
 // create the controller and inject Angular"s $scope
-pokedapp.controller("mainController", function($scope) {
+pokedapp.controller("mainController",['service','$scope', function(service,$scope) {
 var self = this;
 self.pokemons = [];
 
 
-	service.get(hostAddress + 'pokemon', function(answer) {
-		self.pokemon = answer;
+	service.get(pokedapp.adrs.pokeapi + 'pokemon/', function(answer) {
+		self.pokemons = answer;
+		console.log(answer)
 	});
 
-});
+}]);
 
 pokedapp.controller("pokemonController", function($scope) {
 
