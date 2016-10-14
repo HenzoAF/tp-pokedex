@@ -11,7 +11,7 @@ pokedapp.config(function($routeProvider) {
 	})
 
 	// route for the  page
-	.when("/pokemon/:pokemonid", {
+	.when("/:pokemonid", {
 		templateUrl : "templates/pokemon.html",
 		controller  : "pokemonController",
 	})
