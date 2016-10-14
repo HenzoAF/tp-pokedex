@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col m10 offset-m1">
 
-    <a ng-repeat="pokemon in mc.pokemons.results" href="pokemon/{{pokemon.id}}"><div id="images" class="col m4 mainpanel red-border red">
+    <a ng-repeat="pokemon in mc.pokemons" href="pokemon/{{pokemon.id}}"><div id="images" class="col m4 l2 mainpanel red-border red">
 
       <div class="row"> <div class="col m12"><h5></h5></div></div>
 
       <div class="row">
         <div class="col m10 offset-m1 white mainpanel">
-          <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/{{pokemon.id}}.png" width="200px" height="200px" />
+          <img src="{{pokemon.sprite}}" width="200px" height="200px" />
         </div>
       </div>
 
