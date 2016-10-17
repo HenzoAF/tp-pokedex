@@ -1,26 +1,26 @@
 <div class="row">
-  <div id="images" class="col m4 offset-m1 mainpanel red-border red">
+  <div id="images" class="col m3 offset-m1 mainpanel red-border red">
     <div class="row"> <div class="col m12"><h5></h5></div></div>
     <div class="row">
       <div class="col m10 offset-m1 white mainpanel">
-        <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png" width="240px" height="240px" />
+        <img src="{{pc.pokemon.sprite}}" width="100%" height="100%" />
       </div>
     </div>
     <div class="row">
       <div class="col m10 offset-m1 green black-text center mainpanel">
-        <h5>Ivysaur</h5>
+        <h5>{{pc.pokemon.name}}</h5>
       </div>
     </div>
     <div class="row">
       <div class="col m10 offset-m1 green black-text mainpanel">
-        <p><b>TIPO:</b>GRASS,POISON</p>
-        <p><b>ALTURA:</b>12,5M</p>
-        <p><b>PESO:</b>1kg</p>
+        <p><b>TIPO:</b> <span ng-repeat="type in pc.pokemon.types">{{type.type.name}} </span></p>
+        <p><b>ALTURA:</b>{{pc.pokemon.height}}</p>
+        <p><b>PESO:</b>{{pc.pokemon.weight}}</p>
 
       </div>
     </div>
   </div>
-  <div id="evolutions" class="col m6 mainpanel red-border red">
+  <div id="evolutions" class="col m6 offset-m1 mainpanel red-border red">
     <div class="row"> <div class="col m12"><h5></h5></div></div>
     <div class="row">
       <div class="col m10 offset-m1 green black-text center mainpanel">
@@ -28,11 +28,11 @@
       </div>
     </div>
     <div class="row">
-      <a ng-repeat="evolution in pokemonController.evolutions" href="pokemon/{{evolutions.id}}"><div class="littlecards-box" >
+      <a ng-repeat="evolution in pokemonController.evolutions" href="#/{{evolutions.id}}"><div class="littlecards-box" >
         <div class="col mainpanel littlecards">
           <div class="row">
             <div class="col m12 white mainpanel">
-              <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/{{evolution.id}}.png" width="100px" height="100px" />
+              <img src="{{evolution.sprite}}" width="100%" height="100%" />
             </div>
           </div>
           <div class="row">
@@ -49,11 +49,11 @@
       </div>
     </div>
     <div class="row">
-      <a ng-repeat="similar in pokemonController.similares" href="pokemon/{{similares.id}}"><div class="littlecards-box" >
+      <a ng-repeat="similar in pokemonController.similares" href="#/{{similares.id}}"><div class="littlecards-box" >
         <div class="col mainpanel littlecards">
           <div class="row">
             <div class="col m12 white mainpanel">
-              <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/{{similar.id}}.png" width="100px" height="100px" />
+              <img src="{{similar.sprite}}" width="100%" height="100%" />
             </div>
           </div>
           <div class="row">

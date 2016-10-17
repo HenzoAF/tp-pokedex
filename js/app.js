@@ -14,6 +14,8 @@ pokedapp.config(function($routeProvider) {
 	.when("/:pokemonid", {
 		templateUrl : "templates/pokemon.html",
 		controller  : "pokemonController",
+		controllerAs  : "pc",
+
 	})
 	.otherwise(
 		{
@@ -92,6 +94,60 @@ pokedapp.controller("mainController",['service','$scope', function(service,$scop
 
 }]);
 
-pokedapp.controller("pokemonController", function($scope) {
+pokedapp.controller("pokemonController",['service','$scope','$routeParams', function(service,$scope,$routeParams) {
+	var self = this;
+	self.pokemons = [];
+	self.pokemon;
+	self.evolutions = [];
+	self.similares = [];
 
-});
+	service.get(pokedapp.adrs.pokeapi + 'pokemon/'+$routeParams.pokemonid, function(answer) {
+		self.pokemon = answer;
+		self.evolutions = self.pokemon.evolutions;
+		self.similares = self.pokemon.evolutions;
+
+		self.pokemon.id = $routeParams.pokemonid;
+
+		if(self.pokemon.id<9)
+		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(self.pokemon.id)+".png";
+		else if(self.pokemon.id<99)
+		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(self.pokemon.id)+".png";
+		else
+		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (self.pokemon.id)+".png";
+
+
+/*
+		for (var i = 0 ;i<self.evolutions.lenght(); i++){
+
+			self.evolutions[i].id = i+1;
+
+			if(i<9)
+			self.evolutions[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(i+1)+".png";
+			else if(i<99)
+			self.evolutions[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(i+1)+".png";
+			else
+			self.evolutions[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (i+1)+".png";
+		}
+
+		for (var i = 0 ;i<self.similares.lenght(); i++){
+
+			self.similares[i].id = i+1;
+
+			if(i<9)
+			self.similares[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(i+1)+".png";
+			else if(i<99)
+			self.similares[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(i+1)+".png";
+			else
+			self.similares[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (i+1)+".png";
+		}
+
+
+		console.log(self.evolutions);
+		console.log(self.similares);
+*/
+
+		console.log(self.pokemon);
+	});
+
+
+}]);
