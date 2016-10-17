@@ -75,10 +75,10 @@ pokedapp.controller("mainController",['service','$scope', function(service,$scop
 	self.pokemons = [];
 
 
-	service.get(pokedapp.adrs.pokeapi + 'pokemon/?limit=811', function(answer) {
+	service.get(pokedapp.adrs.pokeapi + 'pokemon/?limit=720', function(answer) {
 		self.pokemons = answer.results;
 
-		for (var i = 0 ;i<769; i++){
+		for (var i = 0 ;i<720; i++){
 
 			self.pokemons[i].id = i+1;
 
@@ -89,6 +89,7 @@ pokedapp.controller("mainController",['service','$scope', function(service,$scop
 			else
 			self.pokemons[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (i+1)+".png";
 		}
+
 		console.log(self.pokemons);
 	});
 
@@ -103,8 +104,8 @@ pokedapp.controller("pokemonController",['service','$scope','$routeParams', func
 
 	service.get(pokedapp.adrs.pokeapi + 'pokemon/'+$routeParams.pokemonid, function(answer) {
 		self.pokemon = answer;
-		self.evolutions = self.pokemon.evolutions;
-		self.similares = self.pokemon.evolutions;
+		//self.evolutions = self.pokemon.evolutions;
+		//self.similares = self.pokemon.evolutions;
 
 		self.pokemon.id = $routeParams.pokemonid;
 
@@ -128,24 +129,14 @@ pokedapp.controller("pokemonController",['service','$scope','$routeParams', func
 			else
 			self.evolutions[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (i+1)+".png";
 		}
-
-		for (var i = 0 ;i<self.similares.lenght(); i++){
-
-			self.similares[i].id = i+1;
-
-			if(i<9)
-			self.similares[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(i+1)+".png";
-			else if(i<99)
-			self.similares[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(i+1)+".png";
-			else
-			self.similares[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (i+1)+".png";
-		}
-
-
 		console.log(self.evolutions);
-		console.log(self.similares);
+
 */
 
+
+
+
+	//console.log(self.similares);
 		console.log(self.pokemon);
 	});
 
