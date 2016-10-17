@@ -29,7 +29,7 @@ pokedapp.config(function($routeProvider) {
 
 pokedapp.adrs = {};
 
-pokedapp.adrs.pokeapi = "http://pokeapi.co/api/v2/";
+pokedapp.adrs.pokeapi = "https://pokeapi.co/api/v2/";
 
 pokedapp.factory('service', function($http) {
 	var service = {};
