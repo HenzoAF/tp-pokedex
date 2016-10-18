@@ -38,12 +38,12 @@
 
         <div class="row"><div class="col m12 s12 item_menu"><h1> </h1></div></div>
         <div class="row"><div class="col m12 s12 item_menu"><h1> </h1></div></div>
-
         <li>
-          <div class="collapsible-header">
-            <div class="col m12 s12 item_menu">
-              <h5> <i class="fa fa-viadeo" aria-hidden="true"></i> MODO ADMIN</h5>
-            </div>
+          <div class="col m12 s12 item_menu" ng-controller="menuController as sc">
+
+            <a ng-repeat="link in sc.links" href="#/{{link.adrs}}/"><h4> <i class="{{link.icon}}" aria-hidden="true"></i> {{link.name}}</h4></a>
+            <!-- IDEA: <a href="#/login/"><h5> <i class="fa fa-viadeo" aria-hidden="true"></i> MODO ADMIN</h5></a>  -->
+
           </div>
         </li>
       </ul>

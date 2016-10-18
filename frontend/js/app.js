@@ -1,5 +1,6 @@
 
 // create the module and name it pokedapp
+var logged = false;
 var pokedapp = angular.module("pokedapp", ["ngRoute"]);
 
 // configure our routes
@@ -11,10 +12,16 @@ pokedapp.config(function($routeProvider) {
 	})
 
 	// route for the  page
-	.when("/:pokemonid", {
+	.when("/pokemon/:pokemonid", {
 		templateUrl : "templates/pokemon.html",
 		controller  : "pokemonController",
 		controllerAs  : "pc",
+
+	})
+	.when("/login", {
+		templateUrl : "templates/login.html",
+		controller  : "loginController",
+		controllerAs  : "lc",
 
 	})
 	.otherwise(
@@ -117,28 +124,73 @@ pokedapp.controller("pokemonController",['service','$scope','$routeParams', func
 		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (self.pokemon.id)+".png";
 
 
-/*
+		/*
 		for (var i = 0 ;i<self.evolutions.lenght(); i++){
 
-			self.evolutions[i].id = i+1;
+		self.evolutions[i].id = i+1;
 
-			if(i<9)
-			self.evolutions[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(i+1)+".png";
-			else if(i<99)
-			self.evolutions[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(i+1)+".png";
-			else
-			self.evolutions[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (i+1)+".png";
-		}
-		console.log(self.evolutions);
+		if(i<9)
+		self.evolutions[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(i+1)+".png";
+		else if(i<99)
+		self.evolutions[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(i+1)+".png";
+		else
+		self.evolutions[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (i+1)+".png";
+	}
+	console.log(self.evolutions);
 
-*/
+	*/
 
 
 
 
 	//console.log(self.similares);
-		console.log(self.pokemon);
-	});
+	console.log(self.pokemon);
+});
 
+
+}]);
+pokedapp.controller("menuController",['service','$scope', function(service,$scope) {
+	var self = this;
+
+	self.links = [{}];
+
+	$scope.login = function(){
+		if(logged == true){
+
+			self.links [0] = {
+				name : "Novo pokemon",
+				adrs : "add",
+				icon : "fa fa-pokeball"
+			}
+			self.links [1] = {
+				name : "Dar rage no TT",
+				adrs : "https://twitter.com",
+				icon : "fa fa-twitter"
+			}
+		}
+		else {
+			self.links [0] = {
+				name : "LOGIN",
+				adrs : "login",
+				icon : "fa fa-viadeo"
+			}
+		}
+	}
+		$scope.login();
+
+
+}]);
+pokedapp.controller("loginController",['service','$scope', function(service,$scope) {
+	var self = this;
+
+	$scope.logar = function (log){
+		if (log.username == "bond"){
+			if (log.password == "james,bond"){
+				console.log(logged);
+				logged = true;
+				console.log(logged);
+			}
+		}
+	}
 
 }]);
