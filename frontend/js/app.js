@@ -34,6 +34,10 @@ pokedapp.config(function($routeProvider) {
 		controller  : "newpokemonController",
 		controllerAs  : "npc",
 	})
+	.when("/master-link", {
+		templateUrl : "templates/mastemplate.html",
+	})
+
 	.otherwise(
 		{
 			redirectTo: "/"
@@ -176,17 +180,17 @@ pokedapp.controller("menuController",['service','$scope','$location','$cookieSto
 			self.links [0] = {
 				name : "New pokemon",
 				adrs : "newpokemon",
-				icon : "fa fa-ball"
+				icon : "fa fa-plus-circle"
 			}
 			self.links [1] = {
-				name : "Dar rage no TT",
-				adrs : "https://twitter.com",
-				icon : "fa fa-twitter"
+				name : "Aditional",
+				adrs : "master-link",
+				icon : "fa fa-smile-o"
 			}
 			self.links [2] = {
 				name : "logoff",
 				adrs : "logoff",
-				icon : "fa fa-twitter"
+				icon : "fa fa-wheelchair-alt"
 			}
 		}
 		else {
@@ -194,7 +198,7 @@ pokedapp.controller("menuController",['service','$scope','$location','$cookieSto
 			self.links [0] = {
 				name : "LOGIN",
 				adrs : "login",
-				icon : "fa fa-viadeo"
+				icon : "fa fa-unlock"
 			}
 		}
 	}
