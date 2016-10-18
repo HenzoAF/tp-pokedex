@@ -29,14 +29,20 @@ pokedapp.config(function($routeProvider) {
 		controller  : "loginController",
 		controllerAs  : "lc",
 	})
+	.when("/newpokemon", {
+		templateUrl : "templates/newpokemon.html",
+		controller  : "newpokemonController",
+		controllerAs  : "npc",
+	})
 	.otherwise(
 		{
 			redirectTo: "/"
 		}
 	);
 });
+
 /**
-* Serviço para manipulação dos objetos do serviço
+* Variaveis globais de endereçamento e credenciais
 */
 pokedapp.credentials = [{}];
 
@@ -45,12 +51,15 @@ pokedapp.credentials [0] = {
 	password : "a"
 }
 
-
-
 pokedapp.adrs = {};
 
 pokedapp.adrs.pokeapi = "https://pokeapi.co/api/v2/";
+pokedapp.adrs.hostadrs = "bo";
 
+
+/**
+* Serviço para manipulação dos objetos do serviço
+*/
 pokedapp.factory('service', function($http) {
 	var service = {};
 
@@ -63,7 +72,6 @@ pokedapp.factory('service', function($http) {
 			callback(answer);
 		});
 	};
-
 
 	/**
 	*  Função para tratar POST no serviço
@@ -85,8 +93,6 @@ pokedapp.factory('service', function($http) {
 
 	return service;
 });
-
-
 
 
 // create the controller and inject Angular"s $scope
@@ -153,15 +159,13 @@ pokedapp.controller("pokemonController",['service','$scope','$routeParams', func
 
 	*/
 
-
-
-
 	//console.log(self.similares);
 	console.log(self.pokemon);
 });
 
 
 }]);
+
 pokedapp.controller("menuController",['service','$scope','$location','$cookieStore', function(service,$scope,$location,$cookieStore) {
 	var self = this;
 
@@ -170,9 +174,9 @@ pokedapp.controller("menuController",['service','$scope','$location','$cookieSto
 			self.links = [{}];
 
 			self.links [0] = {
-				name : "Novo pokemon",
-				adrs : "add",
-				icon : "fa fa-pokeball"
+				name : "New pokemon",
+				adrs : "newpokemon",
+				icon : "fa fa-ball"
 			}
 			self.links [1] = {
 				name : "Dar rage no TT",
@@ -196,8 +200,8 @@ pokedapp.controller("menuController",['service','$scope','$location','$cookieSto
 	}
 	pokedapp.menu();
 
-
 }]);
+
 pokedapp.controller("loginController",['service','$scope','$location','$cookieStore', function(service,$scope,$location,$cookieStore) {
 	var self = this;
 
@@ -226,5 +230,21 @@ pokedapp.controller("loginController",['service','$scope','$location','$cookieSt
 		alert("deslogado com sucesso");
 		$location.path('/');
 	}
+
+}]);
+
+pokedapp.controller("newpokemonController",['service','$scope', function(service,$scope) {
+	var self = this;
+	self.pokemons = [];
+
+	$scope.newpokemon = function(pokemon) {
+		console.log(pokemon);
+    service.post(pokedapp.adrs.hostadrs + 'adicionapk', pokemon, function(answer) {
+      if (answer.id !== null) {
+        alert("Cadastrado com sucesso");
+        $location.path('/');
+      }
+    });
+  }
 
 }]);
