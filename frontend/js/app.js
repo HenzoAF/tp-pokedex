@@ -1,7 +1,8 @@
 
 // create the module and name it pokedapp
-var logged = false;
-var pokedapp = angular.module("pokedapp", ["ngRoute"]);
+
+var pokedapp = angular.module("pokedapp", ["ngRoute","ngCookies"]);
+
 
 // configure our routes
 pokedapp.config(function($routeProvider) {
@@ -22,7 +23,11 @@ pokedapp.config(function($routeProvider) {
 		templateUrl : "templates/login.html",
 		controller  : "loginController",
 		controllerAs  : "lc",
-
+	})
+	.when("/logoff", {
+		templateUrl : "templates/logoff.html",
+		controller  : "loginController",
+		controllerAs  : "lc",
 	})
 	.otherwise(
 		{
@@ -33,6 +38,14 @@ pokedapp.config(function($routeProvider) {
 /**
 * Serviço para manipulação dos objetos do serviço
 */
+pokedapp.credentials = [{}];
+
+pokedapp.credentials [0] = {
+	username : "a",
+	password : "a"
+}
+
+
 
 pokedapp.adrs = {};
 
@@ -149,13 +162,12 @@ pokedapp.controller("pokemonController",['service','$scope','$routeParams', func
 
 
 }]);
-pokedapp.controller("menuController",['service','$scope', function(service,$scope) {
+pokedapp.controller("menuController",['service','$scope','$location','$cookieStore', function(service,$scope,$location,$cookieStore) {
 	var self = this;
 
-	self.links = [{}];
-
-	$scope.login = function(){
-		if(logged == true){
+	pokedapp.menu = function(){
+		if( $cookieStore.get('logged') == true){
+			self.links = [{}];
 
 			self.links [0] = {
 				name : "Novo pokemon",
@@ -167,8 +179,14 @@ pokedapp.controller("menuController",['service','$scope', function(service,$scop
 				adrs : "https://twitter.com",
 				icon : "fa fa-twitter"
 			}
+			self.links [2] = {
+				name : "logoff",
+				adrs : "logoff",
+				icon : "fa fa-twitter"
+			}
 		}
 		else {
+			self.links = [{}];
 			self.links [0] = {
 				name : "LOGIN",
 				adrs : "login",
@@ -176,21 +194,37 @@ pokedapp.controller("menuController",['service','$scope', function(service,$scop
 			}
 		}
 	}
-		$scope.login();
+	pokedapp.menu();
 
 
 }]);
-pokedapp.controller("loginController",['service','$scope', function(service,$scope) {
+pokedapp.controller("loginController",['service','$scope','$location','$cookieStore', function(service,$scope,$location,$cookieStore) {
 	var self = this;
 
 	$scope.logar = function (log){
-		if (log.username == "bond"){
-			if (log.password == "james,bond"){
-				console.log(logged);
-				logged = true;
-				console.log(logged);
+		for (var i = 0; i < pokedapp.credentials.length; i++) {
+
+			if (log.username == pokedapp.credentials[i].username){
+				if (log.password == pokedapp.credentials[i].password){
+					$cookieStore.put('logged',true);
+					pokedapp.menu();
+					alert("logado com sucesso");
+					$location.path('/');
+				}
+				else {
+					alert("SENHA ERRADA");
+				}
+			}
+			else {
+				alert("USUARIO NÃO CADASTRADO");
 			}
 		}
+	}
+	$scope.logoff = function (){
+		$cookieStore.put('logged',false);
+		pokedapp.menu();
+		alert("deslogado com sucesso");
+		$location.path('/');
 	}
 
 }]);
