@@ -4,7 +4,7 @@
 
 *João Eduardo Montandon & Virgínia Fernandes Mota*
 
-**Participantes: Augusto Lopes e Henzo Alves --- Valor: 06 pontos (TP) / 08 pontos (DAW)**
+**Participantes: Augusto Lopes, Henzo Alves, Luiz Philippe --- Valor: 06 pontos (TP) / 08 pontos (DAW)**
 
 **Data de Entrega: 01/11/2016**
 
