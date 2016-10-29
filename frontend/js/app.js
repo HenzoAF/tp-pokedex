@@ -139,9 +139,9 @@ pokedapp.controller("pokemonController",['service','$scope','$routeParams', func
 
 		self.pokemon.id = $routeParams.pokemonid;
 
-		if(self.pokemon.id<9)
+		if(self.pokemon.id<=9)
 		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(self.pokemon.id)+".png";
-		else if(self.pokemon.id<99)
+		else if(self.pokemon.id<=99)
 		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(self.pokemon.id)+".png";
 		else
 		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (self.pokemon.id)+".png";
