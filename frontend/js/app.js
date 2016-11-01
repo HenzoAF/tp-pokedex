@@ -24,6 +24,7 @@ pokedapp.config(function($routeProvider) {
 		controller  : "loginController",
 		controllerAs  : "lc",
 	})
+
 	.when("/logoff", {
 		templateUrl : "templates/logoff.html",
 		controller  : "loginController",
@@ -72,12 +73,17 @@ pokedapp.routes = {};
 pokedapp.routes.getall = pokedapp.adrs.pokeapi + 'pokemon/?limit=720';
 pokedapp.routes.getbyid = pokedapp.adrs.pokeapi + 'pokemon/';
 
+pokedapp.routes.delete = pokedapp.adrs.hostadrs + 'deletepokemon/';
+pokedapp.routes.add = pokedapp.adrs.hostadrs + 'deletepokemon/';
+
+
+
 
 
 /**
 * Serviço para manipulação dos objetos do serviço
 */
-pokedapp.factory('service', function($http) {
+pokedapp.factory('service', function($http,$cookieStore) {
 	var service = {};
 
 	/**
@@ -107,7 +113,10 @@ pokedapp.factory('service', function($http) {
 			var answer = response.data;
 		});
 	};
-
+	service.islogged = function(){
+		console.log("YAYYY");
+		return $cookieStore.get('logged') == true;
+	}
 
 	return service;
 });
@@ -273,6 +282,10 @@ pokedapp.controller("newpokemonController",['service','$location','$scope', func
 	self.pokemons = [];
 	self.pokemon = {};
 
+	if (!service.islogged()){
+		$location.path('/');
+	}
+
 	$scope.add = function() {
 		service.post(pokedapp.adrs.hostadrs + 'adicionapk', $scope.pokemon, function(answer) {
 			if (answer.id !== null) {
@@ -292,6 +305,10 @@ pokedapp.controller("editpokemonController",['service','$location','$scope','$ro
 	var self = this;
 	self.pokemons = [];
 
+	if (!service.islogged()){
+		$location.path('/');
+	}
+
 	service.get(pokedapp.routes.getbyid+$routeParams.pokemonid, function(answer) {
 		self.pokemon = answer;
 
@@ -309,7 +326,7 @@ pokedapp.controller("editpokemonController",['service','$location','$scope','$ro
 	});
 
 	$scope.add = function() {
-		service.post(pokedapp.adrs.hostadrs + 'adicionapk', $scope.pokemon, function(answer) {
+		service.post(pokedapp.routes.add, $scope.pokemon, function(answer) {
 			if (answer.id !== null) {
 				alert("Cadastrado com sucesso");
 				$location.path('/');
@@ -324,6 +341,10 @@ pokedapp.controller("deletepokemonController",['service','$location','$scope','$
 	var self = this;
 	self.pokemons = [];
 
+	if (!service.islogged()){
+		$location.path('/');
+	}
+
 	service.get(pokedapp.routes.getbyid+$routeParams.pokemonid, function(answer) {
 		self.pokemon = answer;
 
@@ -336,19 +357,22 @@ pokedapp.controller("deletepokemonController",['service','$location','$scope','$
 		else
 		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (self.pokemon.id)+".png";
 
-		console.log(self.pokemon);
+		$scope.pokemon = self.pokemon;
 	});
 
 
 
 	$scope.burn = function() {
-
-		service.delete(pokedapp.adrs.hostadrs + '/' + self.pokemon.id,function(answer){
-			if (answer.id !== null) {
-				alert(self.pokemon.name + " deletado com sucesso");
-				$location.path('/');
-			}
-		});
+		console.log("FOI");
+		/*service.delete(pokedapp.routes.delete , self.pokemon,function(answer){
+		if (answer.id !== null) {
+		alert(self.pokemon.name + " deletado com sucesso");
+		$location.path('/');
 	}
+});*/
+alert(self.pokemon.name + " deletado com sucesso");
+$location.path('/');
+
+}
 
 }]);
