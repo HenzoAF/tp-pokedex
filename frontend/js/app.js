@@ -68,6 +68,10 @@ pokedapp.adrs = {};
 
 pokedapp.adrs.pokeapi = "https://pokeapi.co/api/v2/";
 pokedapp.adrs.hostadrs = "";
+pokedapp.routes = {};
+pokedapp.routes.getall = pokedapp.adrs.pokeapi + 'pokemon/?limit=720';
+pokedapp.routes.getbyid = pokedapp.adrs.pokeapi + 'pokemon/';
+
 
 
 /**
@@ -104,6 +108,7 @@ pokedapp.factory('service', function($http) {
 		});
 	};
 
+
 	return service;
 });
 
@@ -114,7 +119,7 @@ pokedapp.controller("mainController",['service','$scope', function(service,$scop
 	self.pokemons = [];
 
 
-	service.get(pokedapp.adrs.pokeapi + 'pokemon/?limit=720', function(answer) {
+	service.get(pokedapp.routes.getall, function(answer) {
 		self.pokemons = answer.results;
 
 		for (var i = 0 ;i<720; i++){
@@ -142,7 +147,7 @@ pokedapp.controller("pokemonController",['service','$scope','$location','$routeP
 	self.evolutions = [];
 	self.similares = [];
 
-	service.get(pokedapp.adrs.pokeapi + 'pokemon/'+$routeParams.pokemonid, function(answer) {
+	service.get(pokedapp.routes.getbyid+$routeParams.pokemonid, function(answer) {
 		self.pokemon = answer;
 		//self.evolutions = self.pokemon.evolutions;
 		//self.similares = self.pokemon.evolutions;
@@ -268,7 +273,7 @@ pokedapp.controller("newpokemonController",['service','$location','$scope', func
 	self.pokemons = [];
 	self.pokemon = {};
 
-	pokedapp.pokemon = function() {
+	$scope.add = function() {
 		service.post(pokedapp.adrs.hostadrs + 'adicionapk', $scope.pokemon, function(answer) {
 			if (answer.id !== null) {
 				alert("Cadastrado com sucesso");
@@ -277,12 +282,17 @@ pokedapp.controller("newpokemonController",['service','$location','$scope', func
 		});
 	}
 
+
+
+
+
 }]);
+
 pokedapp.controller("editpokemonController",['service','$location','$scope','$routeParams', function(service,$location,$scope,$routeParams) {
 	var self = this;
 	self.pokemons = [];
 
-	service.get(pokedapp.adrs.pokeapi + 'pokemon/'+$routeParams.pokemonid, function(answer) {
+	service.get(pokedapp.routes.getbyid+$routeParams.pokemonid, function(answer) {
 		self.pokemon = answer;
 
 		self.pokemon.id = $routeParams.pokemonid;
@@ -298,12 +308,23 @@ pokedapp.controller("editpokemonController",['service','$location','$scope','$ro
 		$scope.pokemon = self.pokemon;
 	});
 
+	$scope.add = function() {
+		service.post(pokedapp.adrs.hostadrs + 'adicionapk', $scope.pokemon, function(answer) {
+			if (answer.id !== null) {
+				alert("Cadastrado com sucesso");
+				$location.path('/');
+			}
+		});
+	}
+
+
+
 }]);
 pokedapp.controller("deletepokemonController",['service','$location','$scope','$routeParams', function(service,$location,$scope,$routeParams) {
 	var self = this;
 	self.pokemons = [];
 
-	service.get(pokedapp.adrs.pokeapi + 'pokemon/'+$routeParams.pokemonid, function(answer) {
+	service.get(pokedapp.routes.getbyid+$routeParams.pokemonid, function(answer) {
 		self.pokemon = answer;
 
 		self.pokemon.id = $routeParams.pokemonid;

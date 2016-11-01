@@ -17,13 +17,13 @@
                 <p>
                   Tipo primario
                 </p>
-                <input id="" type="text" ng-model="pokemon.primary_type">
+                <input id="" type="text" ng-model="pokemon.type[0].nome">
               </div>
               <div class="input-field col s12 m6">
                 <p>
                   Tipo secundario
                 </p>
-                <input id="" type="text" ng-model="pokemon.secondary_type">
+                <input id="" type="text" ng-model="pokemon.type[1].nome">
               </div>
             </div>
             <div class="row">
@@ -41,19 +41,23 @@
               </div>
             </div>
             <div class="row">
-              <div class="input-field col s12">
+              <div class="input-field col m6 s12">
                 <p>
                   Imagem:
                 </p>
                 <input id="" type="text" ng-model="pokemon.sprite">
               </div>
+              <div class="col m5 offset-m1 white center mainpanel">
+                <img src="{{pokemon.sprite}}" width="30%" height="30%" />
+              </div>
             </div>
+
 
             <div class="row"> <div class="col m12"><h1> </h1></div></div>
 
 
             <div class="row">
-              <button class="btn col s5 offset-s7 m2 offset-m9 red" ng-click="pokemon()">Adicionar</button>
+              <button class="btn col s5 offset-s7 m2 offset-m9 red" ng-click="add()">Adicionar</button>
             </div>
             <div class="row"> <div class="col m12"><h1> </h1></div></div>
 
