@@ -3,7 +3,9 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Starter Template - Materialize</title>
+  <title>Pokedex</title>
+  <link rel="shortcut icon" type="image/png" href="/imgs/logo.png"/>
+
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -41,10 +43,7 @@
         <div class="row"><div class="col m12 s12 item_menu"><h1> </h1></div></div>
         <li>
           <div class="col m12 s12 item_menu" ng-controller="menuController as sc">
-
             <a ng-repeat="link in sc.links" href="#/{{link.adrs}}/"><h4> <i class="{{link.icon}}" aria-hidden="true"></i> {{link.name}}</h4></a>
-            <!-- IDEA: <a href="#/login/"><h5> <i class="fa fa-viadeo" aria-hidden="true"></i> MODO ADMIN</h5></a>  -->
-
           </div>
         </li>
       </ul>

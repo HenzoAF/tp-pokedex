@@ -100,3 +100,7 @@ nav a.button-collapse{
   box-shadow: none;
   color: inherit;
 }
+.col.pad-x{
+  padding-left: 2.5px;
+  padding-right: 2.5px;
+}

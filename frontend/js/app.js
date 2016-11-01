@@ -34,6 +34,15 @@ pokedapp.config(function($routeProvider) {
 		controller  : "newpokemonController",
 		controllerAs  : "npc",
 	})
+	.when("/deletepokemon/:pokemonid/", {
+		templateUrl : "templates/deletepokemon.html",
+		controller  : "deletepokemonController",
+		controllerAs  : "dpc",
+	})
+	.when("/editpokemon/:pokemonid/", {
+		templateUrl : "templates/newpokemon.html",
+		controller  : "editpokemonController",
+	})
 	.when("/master-link", {
 		templateUrl : "templates/mastemplate.html",
 	})
@@ -58,7 +67,7 @@ pokedapp.credentials [0] = {
 pokedapp.adrs = {};
 
 pokedapp.adrs.pokeapi = "https://pokeapi.co/api/v2/";
-pokedapp.adrs.hostadrs = "bo";
+pokedapp.adrs.hostadrs = "";
 
 
 /**
@@ -125,10 +134,11 @@ pokedapp.controller("mainController",['service','$scope', function(service,$scop
 
 }]);
 
-pokedapp.controller("pokemonController",['service','$scope','$routeParams', function(service,$scope,$routeParams) {
+pokedapp.controller("pokemonController",['service','$scope','$location','$routeParams','$cookieStore', function(service,$scope,$location,$routeParams,$cookieStore) {
 	var self = this;
 	self.pokemons = [];
 	self.pokemon;
+	$scope.logged =  $cookieStore.get('logged');
 	self.evolutions = [];
 	self.similares = [];
 
@@ -146,6 +156,9 @@ pokedapp.controller("pokemonController",['service','$scope','$routeParams', func
 		else
 		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (self.pokemon.id)+".png";
 
+		self.pokemon.weight /= 10;
+		self.pokemon.height /= 10;
+		self.pokemon.types.reverse();
 
 		/*
 		for (var i = 0 ;i<self.evolutions.lenght(); i++){
@@ -166,6 +179,17 @@ pokedapp.controller("pokemonController",['service','$scope','$routeParams', func
 	//console.log(self.similares);
 	console.log(self.pokemon);
 });
+$scope.edit = function(id){
+	$location.path('/editpokemon/'+id+'/');
+
+	console.log("EDITOU");
+}
+
+$scope.delete = function(id){
+	$location.path('/deletepokemon/'+id+'/');
+	console.log("DELETOU");
+}
+
 
 
 }]);
@@ -237,18 +261,73 @@ pokedapp.controller("loginController",['service','$scope','$location','$cookieSt
 
 }]);
 
-pokedapp.controller("newpokemonController",['service','$scope', function(service,$scope) {
+
+
+pokedapp.controller("newpokemonController",['service','$location','$scope', function(service,$location,$scope) {
+	var self = this;
+	self.pokemons = [];
+	self.pokemon = {};
+
+	pokedapp.pokemon = function() {
+		service.post(pokedapp.adrs.hostadrs + 'adicionapk', $scope.pokemon, function(answer) {
+			if (answer.id !== null) {
+				alert("Cadastrado com sucesso");
+				$location.path('/');
+			}
+		});
+	}
+
+}]);
+pokedapp.controller("editpokemonController",['service','$location','$scope','$routeParams', function(service,$location,$scope,$routeParams) {
 	var self = this;
 	self.pokemons = [];
 
-	$scope.newpokemon = function(pokemon) {
-		console.log(pokemon);
-    service.post(pokedapp.adrs.hostadrs + 'adicionapk', pokemon, function(answer) {
-      if (answer.id !== null) {
-        alert("Cadastrado com sucesso");
-        $location.path('/');
-      }
-    });
-  }
+	service.get(pokedapp.adrs.pokeapi + 'pokemon/'+$routeParams.pokemonid, function(answer) {
+		self.pokemon = answer;
+
+		self.pokemon.id = $routeParams.pokemonid;
+
+		if(self.pokemon.id<=9)
+		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(self.pokemon.id)+".png";
+		else if(self.pokemon.id<=99)
+		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(self.pokemon.id)+".png";
+		else
+		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (self.pokemon.id)+".png";
+
+		console.log(self.pokemon);
+		$scope.pokemon = self.pokemon;
+	});
+
+}]);
+pokedapp.controller("deletepokemonController",['service','$location','$scope','$routeParams', function(service,$location,$scope,$routeParams) {
+	var self = this;
+	self.pokemons = [];
+
+	service.get(pokedapp.adrs.pokeapi + 'pokemon/'+$routeParams.pokemonid, function(answer) {
+		self.pokemon = answer;
+
+		self.pokemon.id = $routeParams.pokemonid;
+
+		if(self.pokemon.id<=9)
+		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(self.pokemon.id)+".png";
+		else if(self.pokemon.id<=99)
+		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(self.pokemon.id)+".png";
+		else
+		self.pokemon.sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (self.pokemon.id)+".png";
+
+		console.log(self.pokemon);
+	});
+
+
+
+	$scope.burn = function() {
+
+		service.delete(pokedapp.adrs.hostadrs + '/' + self.pokemon.id,function(answer){
+			if (answer.id !== null) {
+				alert(self.pokemon.name + " deletado com sucesso");
+				$location.path('/');
+			}
+		});
+	}
 
 }]);
