@@ -1,16 +1,88 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Pokedex</title>
+  <link rel="shortcut icon" type="image/png" href="/imgs/logo.png"/>
+
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/mcssfix.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+
+  <script src="js/app.js"></script>
+
+</head>
+<body ng-app="pokedapp">
+  <header>
+    <div class="navbar-fixed">
+      <nav class="red darken-4">
+        <div class="row">
+          <a href="" data-activates="sidenav" class="white-text button-collapse header-menu-fix"><i class="material-icons">menu</i></a>
+          <a href="#/"><img class="header-home-fix" src="/imgs/logo.png" width="40px" height="40px"/></a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="row"> <div class="col m12"><h1> </h1></div></div>
+
+  <main>
+    <!--inicio menu-->
+    <ul id="sidenav" class="side-nav red darken-3 white-text">
+      <ul class="collapsible collapsible-accordion" data-collapsible="accordion">
+
+        <div class="row"><div class="col m12 s12 item_menu"><h1> </h1></div></div>
+        <div class="row"><div class="col m12 s12 item_menu"><h1> </h1></div></div>
+        <li>
+          <div class="col m12 s12 item_menu" ng-controller="menuController as sc">
+            <a ng-repeat="link in sc.links" href="#/{{link.adrs}}/"><h4> <i class="{{link.icon}}" aria-hidden="true"></i> {{link.name}}</h4></a>
+          </div>
+        </li>
+      </ul>
+    </ul>
+    <!--final menu-->
+
+    <!--inicio conteudo-->
+
+    <div ng-view></div>
+
+    <!--final conteudo-->
+    <div class="row"> <div class="col m12"><h1> </h1></div></div>
+    <div class="row"> <div class="col m12"><h1> </h1></div></div>
+    <div class="row"> <div class="col m12"><h1> </h1></div></div>
+
+  </main>
+
+
+  <footer class="page-footer red darken-4">
+    <div class="container">
+      <div class="row">
+        <div class="col l12 s12">
+          <h5 class="white-text"></h5>
+          <p class="white-text"></p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        Made by <a href="https://afflz.github.io"> ( ͡° ͜ʖ ͡°) </a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+</body>
 </html>

@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col m4 offset-m1">
+    <div class="row">
+      <div id="images" class="col m10 offset-m1 mainpanel red-border red">
+        <div class="row"> <div class="col m12"><h5></h5></div></div>
+        <div class="row">
+          <div class="col m10 offset-m1 lcd-green black-text nome-pokemon center mainpanel">
+            <h4>{{pc.pokemon.nome}}</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m10 offset-m1 white mainpanel">
+            <img src="{{pc.pokemon.sprite}}" width="100%" height="100%" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m10 offset-m1 lcd-green black-text mainpanel center">
+            <h5><b>TIPO 1:</b> <span class="nome-pokemon"> {{pc.pokemon.primary_type}} </span></h5>
+            <h5><b>TIPO 2:</b> <span class="nome-pokemon" ng-if="pc.pokemon.secondary_type != null"> {{pc.pokemon.secondary_type}} </span></h5>
+            <h5><b>ALTURA:</b> {{pc.pokemon.height}} M</h5>
+            <h5><b>PESO:</b> {{pc.pokemon.weight}} kg</h5>
+          </div>
+        </div>
+        <div class="row" ng-if="logged">
+          <div class="col m10 offset-m1 lcd-green black-text mainpanel center">
+            <h5>
+              <a href="" ng-click="delete(pc.pokemon.id_pokemon)" name="action" type="submit">
+                <i class="fa fa-times-circle black-text" aria-hidden="true"></i>
+              </a>
+              <a><i class="fa fa-times-circl green-text" aria-hidden="true"></i></a><a><i class="fa fa-times-circl green-text" aria-hidden="true"></i></a> <a><i class="fa fa-times-circl green-text" aria-hidden="true"></i></a>
+              <a><i class="fa fa-times-circl green-text" aria-hidden="true"></i></a><a><i class="fa fa-times-circl green-text" aria-hidden="true"></i></a><a><i class="fa fa-times-circl green-text" aria-hidden="true"></i></a>
+              <a><i class="fa fa-times-circl green-text" aria-hidden="true"></i></a> <a><i class="fa fa-times-circl green-text" aria-hidden="true"></i></a>
+                <a href="" ng-click="edit(pc.pokemon.id_pokemon)" name="action" type="submit">
+                <i class="fa fa-pencil black-text" aria-hidden="true"></i>
+              </a>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="evolutions" class="col m6 mainpanel red-border red">
+    <div class="row"> <div class="col m12"><h5></h5></div></div>
+    <div class="row">
+      <div class="col m10 offset-m1 white-text center mainpanel">
+        <h5>Evolutions</h5>
+      </div>
+    </div>
+    <div class="row">
+      <a ng-repeat="evolution in pokemonController.evolutions" href="#/{{evolutions.id}}"><div class="littlecards-box" >
+        <div class="col mainpanel littlecards">
+          <div class="row">
+            <div class="col m12 white mainpanel">
+              <img src="{{evolution.sprite}}" width="100%" height="100%" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col m12 lcd-green black-text center mainpanel">
+              <h5>{{evolution.nome}}</h5>
+            </div>
+          </div>
+        </div>
+      </div></a>
+
+      <div class="row">
+        <div class="col m10 offset-m1 white-text center mainpanel">
+          <h5>Similares</h5>
+        </div>
+      </div>
+      <div class="row">
+        <a ng-repeat="similar in pokemonController.similares" href="#/{{similares.id}}"><div class="littlecards-box" >
+          <div class="col mainpanel littlecards">
+            <div class="row">
+              <div class="col m12 white mainpanel">
+                <img src="{{similar.sprite}}" width="100%" height="100%" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col m12 lcd-green black-text center mainpanel">
+                <h5>{{similar.nome}}</h5>
+              </div>
+            </div>
+          </div>
+        </div></a>
+      </div>
+    </div>
+  </div>

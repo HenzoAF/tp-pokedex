@@ -6,7 +6,6 @@ package logica;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import persistence.pokemonDAO;
 
 /**
  *
@@ -14,8 +13,6 @@ import persistence.pokemonDAO;
  */
 public interface Logica {
 
-    public static pokemonDAO pokemonDAO = new pokemonDAO();
-
-    String executa(HttpServletRequest req, HttpServletResponse res) 
+    public void executa(HttpServletRequest req, HttpServletResponse res) 
             throws Exception;
 }

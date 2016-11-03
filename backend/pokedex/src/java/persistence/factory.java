@@ -1,29 +1,35 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import com.mysql.jdbc.Driver;
 
-/**
- *
- * @author strudel
- */
 public class factory {
 
+    private static final String user = "daw-aluno4";
+    private static final String password = "augusto";
+    private static final String dataBase = "daw-aluno4";
+    private static final String address = "150.164.102.160";
     private static Connection connection;
 
-    public static Connection getConnection()  {
+    /**
+     *
+     * @throws java.sql.SQLException
+     * @return the java.sql.Connection
+     */
+    public static Connection getConnection() throws SQLException {
         try {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             if (connection == null) {
-                connection = DriverManager.getConnection("jdbc:mysql://150.164.102.160/daw-aluno4", "daw-aluno4", "augusto");
+                connection = DriverManager.getConnection("jdbc:mysql://" + address + "/" + dataBase, user, password);
+                System.out.println("CONECTION ESTABILISHED");
             }
 
             return connection;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 }

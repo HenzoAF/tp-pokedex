@@ -1,3 +1,4 @@
+package mvc;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -25,15 +26,16 @@ public class mvc extends HttpServlet {
         String nomeDaClasse = "logica." + parametro;
 
         try {
+            System.out.println("MVC");
             Class classe = Class.forName(nomeDaClasse);
             Logica logica = (Logica) classe.newInstance();
-            String pagina = logica.executa(request, response);
-            request.getRequestDispatcher(pagina).forward(request, response);
+            logica.executa(request, response);
         } catch (Exception e) {
             response.getWriter().print(e);
-//           throw new ServletException(
-//                    "A lógica de negócios causou uma exceção ", e);
+            throw new ServletException(
+                    "A lógica de negócios causou uma exceção ", e);
         }
 
     }
+
 }
