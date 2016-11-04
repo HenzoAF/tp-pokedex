@@ -42,22 +42,22 @@ public class pokemonDAO {
     }
 
     public static void altera(pokemon_data p) throws ServletException, SQLException {
-        
-        pokemon_data pokemon = (pokemon_data) p;
-        
-            PreparedStatement stmt = connection.prepareStatement("UPDATE tb_pokemon SET nome = ?, weight=?,height=?, primary_type=?, secondary_type=?,sprite=?,prevolucao=? WHERE id_pokemon = ?");
-            stmt.setString(1, pokemon.getNome());
-            stmt.setFloat(2, pokemon.getWeight());
-            stmt.setFloat(3, pokemon.getHeight());
-            stmt.setString(4, pokemon.getTipo_primario());
-            stmt.setString(5, pokemon.getTipo_secundario());
-            stmt.setString(6, pokemon.getSprite());
-            stmt.setInt(7, pokemon.getPrevolucao());
-            stmt.setInt(8, pokemon.getId_pokemon());
 
-            stmt.execute();
-            stmt.close();
-   
+        pokemon_data pokemon = (pokemon_data) p;
+
+        PreparedStatement stmt = connection.prepareStatement("UPDATE tb_pokemon SET nome = ?, weight=?,height=?, primary_type=?, secondary_type=?,sprite=?,prevolucao=? WHERE id_pokemon = ?");
+        stmt.setString(1, pokemon.getNome());
+        stmt.setFloat(2, pokemon.getWeight());
+        stmt.setFloat(3, pokemon.getHeight());
+        stmt.setString(4, pokemon.getTipo_primario());
+        stmt.setString(5, pokemon.getTipo_secundario());
+        stmt.setString(6, pokemon.getSprite());
+        stmt.setInt(7, pokemon.getPrevolucao());
+        stmt.setInt(8, pokemon.getId_pokemon());
+
+        stmt.execute();
+        stmt.close();
+
     }
 
     public static void insere(pokemon_data p) throws ServletException, SQLException {
@@ -138,6 +138,71 @@ public class pokemonDAO {
         stmt.close();
 
         return pokemon;
+    }
+
+    public List<pokemon_data> getbyidprev(int id) throws SQLException {
+        System.out.println("GET BY ID DAO");
+
+        String select = "SELECT * FROM tb_pokemon WHERE prevolucao = ?";
+
+        PreparedStatement stmt = connection.prepareStatement(select);
+        stmt.setInt(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+        List<pokemon_data> pokemons = new ArrayList<pokemon_data>();
+
+        while (rs.next()) {
+            pokemon_data pokemon = new pokemon_data();
+
+            pokemon.setId_pokemon(rs.getInt("id_pokemon"));
+            pokemon.setNome(rs.getString("nome"));
+            pokemon.setWeight(rs.getFloat("weight"));
+            pokemon.setHeight(rs.getFloat("height"));
+            pokemon.setSprite(rs.getString("sprite"));
+            pokemon.setTipo_primario(rs.getString("primary_type"));
+            pokemon.setTipo_secundario(rs.getString("secondary_type"));
+            pokemon.setPrevolucao(rs.getInt("prevolucao"));
+            pokemons.add(pokemon);
+
+        }
+        rs.close();
+        stmt.close();
+
+        return pokemons;
+    }
+    public List<pokemon_data> getbytipo(String tipo,String tipo2) throws SQLException {
+        System.out.println("GET BY ID DAO");
+
+        String select = "SELECT * FROM tb_pokemon WHERE primary_type = ? OR secondary_type = ? OR primary_type = ? OR secondary_type = ? GROUP BY id_pokemon";
+
+        PreparedStatement stmt = connection.prepareStatement(select);
+        stmt.setString(1, tipo);
+        stmt.setString(2, tipo);
+        stmt.setString(3, tipo2);
+        stmt.setString(4, tipo2);
+
+        ResultSet rs = stmt.executeQuery();
+        List<pokemon_data> pokemons = new ArrayList<pokemon_data>();
+
+        while (rs.next()) {
+            pokemon_data pokemon = new pokemon_data();
+
+            pokemon.setId_pokemon(rs.getInt("id_pokemon"));
+            pokemon.setNome(rs.getString("nome"));
+            pokemon.setWeight(rs.getFloat("weight"));
+            pokemon.setHeight(rs.getFloat("height"));
+            pokemon.setSprite(rs.getString("sprite"));
+            pokemon.setTipo_primario(rs.getString("primary_type"));
+            pokemon.setTipo_secundario(rs.getString("secondary_type"));
+            pokemon.setPrevolucao(rs.getInt("prevolucao"));
+            pokemons.add(pokemon);
+
+        }
+        
+        rs.close();
+        stmt.close();
+
+        return pokemons;
     }
 
 }

@@ -72,8 +72,11 @@ pokedapp.adrs.hostadrs = "localhost:8080";
 pokedapp.routes = {};
 //pokedapp.routes.getall = pokedapp.adrs.pokeapi + 'pokemon/?limit=720';
 pokedapp.routes.getall = 'mvc?logica=getpokemonall';
-pokedapp.routes.getbyid = pokedapp.adrs.pokeapi + 'pokemon/';
+//pokedapp.routes.getbyid = pokedapp.adrs.pokeapi + 'pokemon/';
 pokedapp.routes.getbyid = 'mvc?logica=getpokemonbyid&id=';
+pokedapp.routes.getpokemonprev = 'mvc?logica=getpokemonprev&id=';
+pokedapp.routes.getbytipo = 'mvc?logica=getbytipo&tipo=';
+
 
 pokedapp.routes.delete = 'mvc?logica=deletepokemon';
 pokedapp.routes.add = 'mvc?logica=addpokemon';
@@ -136,22 +139,22 @@ pokedapp.controller("mainController",['service','$scope', function(service,$scop
 
 
 		self.pokemons = answer;
-/*
+		/*
 		for (var i = 0 ;i<720; i++){
 
-			self.pokemons[i].id = i+1;
+		self.pokemons[i].id = i+1;
 
-			if(i<9)
-			self.pokemons[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(i+1)+".png";
-			else if(i<99)
-			self.pokemons[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(i+1)+".png";
-			else
-			self.pokemons[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (i+1)+".png";
-		}
-    */
+		if(i<9)
+		self.pokemons[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "00"+(i+1)+".png";
+		else if(i<99)
+		self.pokemons[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + "0"+(i+1)+".png";
+		else
+		self.pokemons[i].sprite = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + (i+1)+".png";
+	}
+	*/
 
-		console.log(self.pokemons);
-	});
+	console.log(self.pokemons);
+});
 
 }]);
 
@@ -165,22 +168,79 @@ pokedapp.controller("pokemonController",['service','$scope','$location','$routeP
 
 	service.get(pokedapp.routes.getbyid+$routeParams.pokemonid, function(answer) {
 		self.pokemon = answer;
-
+		console.log(answer);
 		self.pokemon.weight /= 10;
 		self.pokemon.height /= 10;
 
-	console.log(self.pokemon);
-});
-$scope.edit = function(id){
-	$location.path('/editpokemon/'+id+'/');
+		if(answer.prevolucao !== 0 || answer.prevolucao === null){
+			self.getback(answer);
+		}
+		else {
+			self.evolutions.push(answer);
+		self.getforward(answer);
+		}
 
-	console.log("EDITOU");
-}
+		service.get(pokedapp.routes.getbytipo+answer.primary_type+"&tipo2="+answer.secondary_type,function(answer){
+			self.similares = self.similares.concat(answer);
+			console.log(self.similares);
+		});
 
-$scope.delete = function(id){
-	$location.path('/deletepokemon/'+id+'/');
-	console.log("DELETOU");
-}
+
+	});
+
+	self.getback = function(pokemon){
+		service.get(pokedapp.routes.getbyid+pokemon.prevolucao,function(answer){
+			if(answer.prevolucao === 0){
+				//self.evolutions.push(answer);
+				console.log("ALL BACK");
+				console.log(answer);
+				self.evolutions.push(answer);
+				self.getforward(answer);
+			}
+			else {
+				console.log(answer);
+				//self.evolutions.push(answer);
+				console.log("GETTING BACK");
+				self.getback(answer);
+			}
+		});
+	}
+
+
+
+	self.getforward = function(pokemon){
+		service.get(pokedapp.routes.getpokemonprev+pokemon.id_pokemon,function(answer){
+			if(answer.id !== null){
+				console.log(answer);
+
+				for (var i = 0; i < answer.length; i++) {
+					self.getforward(answer[i]);
+				}
+				self.evolutions = self.evolutions.concat(answer);
+
+			}
+		});
+
+
+
+
+
+	}
+
+
+
+
+
+	$scope.edit = function(id){
+		$location.path('/editpokemon/'+id+'/');
+
+		console.log("EDITOU");
+	}
+
+	$scope.delete = function(id){
+		$location.path('/deletepokemon/'+id+'/');
+		console.log("DELETOU");
+	}
 
 
 
@@ -320,15 +380,15 @@ pokedapp.controller("deletepokemonController",['service','$location','$scope','$
 	});
 
 	$scope.burn = function() {
-    console.log(self.pokemon);
+		console.log(self.pokemon);
 		console.log("FOI");
 		service.post(pokedapp.routes.delete , self.pokemon,function(answer){
-		if (answer.id !== null) {
-		alert(self.pokemon.nome + " deletado com sucesso");
-		$location.path('/');
-	}
-});
+			if (answer.id !== null) {
+				alert(self.pokemon.nome + " deletado com sucesso");
+				$location.path('/');
+			}
+		});
 
-}
+	}
 
 }]);
